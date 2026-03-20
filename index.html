@@ -25,13 +25,15 @@ html, body { width: 100%; min-height: 100vh; background: #0c0704; overflow-x: hi
 
 body::before {
   content: ""; position: fixed; inset: 0; z-index: 0;
-  background: radial-gradient(ellipse at 50% 30%, #3d1e08 0%, #160a04 55%, #080402 100%);
+  background: radial-gradient(ellipse at 50% 25%, #5c3200 0%, #2e1600 45%, #120800 80%, #070400 100%);
 }
 
 #particles { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
 .light-overlay {
   position: fixed; inset: 0; z-index: 2; pointer-events: none;
-  background: radial-gradient(ellipse 60% 40% at 50% 0%, rgba(255,185,55,0.09) 0%, transparent 70%);
+  background:
+    radial-gradient(ellipse 70% 50% at 50% -5%, rgba(255,210,80,0.28) 0%, rgba(240,165,30,0.10) 45%, transparent 70%),
+    radial-gradient(ellipse 50% 35% at 50% 105%, rgba(200,110,15,0.14) 0%, transparent 65%);
 }
 
 /* ════════════ WRAPPER ════════════ */
@@ -47,10 +49,10 @@ body::before {
 .paper-ember {
   position: absolute; inset: -20px; z-index: -1; border-radius: 4px;
   background:
-    radial-gradient(ellipse 100% 18% at 50% 5%,  rgba(215,68,4,0.58) 0%, rgba(130,33,2,0.32) 45%, transparent 72%),
-    radial-gradient(ellipse 100% 18% at 50% 95%, rgba(215,68,4,0.58) 0%, rgba(130,33,2,0.32) 45%, transparent 72%),
-    radial-gradient(ellipse 16% 100% at 5%  50%, rgba(195,56,3,0.52) 0%, rgba(112,28,2,0.28) 45%, transparent 72%),
-    radial-gradient(ellipse 16% 100% at 95% 50%, rgba(195,56,3,0.52) 0%, rgba(112,28,2,0.28) 45%, transparent 72%);
+    radial-gradient(ellipse 100% 22% at 50% 5%,  rgba(220,155,20,0.55) 0%, rgba(180,100,10,0.28) 45%, transparent 72%),
+    radial-gradient(ellipse 100% 22% at 50% 95%, rgba(220,155,20,0.55) 0%, rgba(180,100,10,0.28) 45%, transparent 72%),
+    radial-gradient(ellipse 18% 100% at 5%  50%, rgba(200,130,15,0.45) 0%, rgba(160,90,8,0.22) 45%, transparent 72%),
+    radial-gradient(ellipse 18% 100% at 95% 50%, rgba(200,130,15,0.45) 0%, rgba(160,90,8,0.22) 45%, transparent 72%);
   filter: blur(11px);
   animation: emberPulse 3.8s ease-in-out infinite alternate;
 }
@@ -63,8 +65,8 @@ body::before {
 .paper {
   position: relative;
   background:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.15'/%3E%3C/svg%3E"),
-    linear-gradient(168deg, #f8eacf 0%, #f2deb2 22%, #ebd59d 50%, #e2c985 75%, #dbbf79 100%);
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.12'/%3E%3C/svg%3E"),
+    linear-gradient(168deg, #fdf5e0 0%, #f8e8c0 18%, #f2d898 42%, #edd090 65%, #e6c478 100%);
   padding: clamp(36px,8vw,68px) clamp(22px,9vw,72px) clamp(44px,9vw,76px);
   clip-path: polygon(
     0.8% 1.1%, 2.2% 0.2%, 3.7% 1.4%, 5.3% 0.0%, 7.1% 1.7%, 8.8% 0.3%,
@@ -400,48 +402,79 @@ body::before {
   opacity: 0; animation: fadeIn 1s ease 7.6s forwards;
 }
 
-/* ════════════ COMMITMENT BUTTON ════════════ */
-.commit-section {
-  margin-top: clamp(2rem,5vw,3rem); text-align: center;
+/* ════════════ VIDEO SECRET ════════════ */
+#videoSecretWrap {
+  margin-top: clamp(2rem,5vw,3rem);
   padding-top: clamp(1.4rem,3.5vw,2rem);
-  border-top: 1px solid rgba(155,100,38,0.2);
-  opacity: 0; animation: fadeIn 1.2s ease 8.1s forwards;
-  transition: opacity 0.8s ease, max-height 0.8s ease; overflow: hidden;
+  border-top: 1px solid rgba(200,155,50,0.25);
+  text-align: center;
+  position: relative;
 }
-.commit-section.gone { opacity: 0; max-height: 0; pointer-events: none; }
-.commit-hint {
-  font-family: 'Cormorant Garamond', serif; font-size: 0.88rem; font-style: italic;
-  color: var(--ink-light); margin-bottom: 1.1rem; letter-spacing: 0.03em; min-height: 1.4em;
-  transition: color 0.6s;
+
+/* The small gold star that hints at the secret */
+#videoHint {
+  font-size: 1.6rem; color: rgba(200,150,30,0.35);
+  cursor: pointer; display: inline-block;
+  transition: color 0.5s ease, text-shadow 0.5s ease, transform 0.5s ease;
+  animation: videoHintPulse 4s ease-in-out infinite alternate;
+  user-select: none;
 }
-.commit-btn {
-  font-family: 'Dancing Script', cursive; font-size: 1.18rem; font-weight: 600;
-  color: #f5e5c5;
-  background: linear-gradient(145deg, #6a2d08 0%, #4a1b05 50%, #7a3410 100%);
-  border: 1px solid rgba(200,135,45,0.35); padding: 14px 38px;
-  cursor: pointer; letter-spacing: 0.04em; position: relative; overflow: hidden;
-  box-shadow: 0 2px 14px rgba(0,0,0,0.48), inset 0 1px 0 rgba(255,205,110,0.10);
-  transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
-  clip-path: polygon(0% 8%, 1.5% 0%, 98.5% 0%, 100% 8%, 100% 92%, 98.5% 100%, 1.5% 100%, 0% 92%);
+@keyframes videoHintPulse {
+  from { color: rgba(200,150,30,0.28); transform: scale(1); }
+  to   { color: rgba(220,170,40,0.55); transform: scale(1.12); text-shadow: 0 0 18px rgba(220,165,20,0.5); }
 }
-.commit-btn:hover:not(:disabled) {
-  background: linear-gradient(145deg, #7c3610 0%, #5b230a 50%, #8d4015 100%);
-  transform: translateY(-2px);
-  box-shadow: 0 5px 22px rgba(0,0,0,0.5), 0 0 28px rgba(200,70,8,0.18);
+#videoHint:hover {
+  color: rgba(230,180,40,0.85);
+  text-shadow: 0 0 12px rgba(220,165,20,0.7), 0 0 28px rgba(200,130,15,0.45);
+  transform: scale(1.25);
 }
-.commit-btn:disabled { cursor: default; }
-.commit-btn.done {
-  background: linear-gradient(145deg, #2c1104, #1d0a02, #2c1104);
-  color: #b07838; font-size: 1.0rem;
-  border-color: rgba(150,90,25,0.22);
-  transform: none !important; box-shadow: 0 1px 8px rgba(0,0,0,0.4) !important;
+#videoHint .video-hint-tooltip {
+  position: absolute; bottom: calc(100% + 10px); left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  background: rgba(28,10,2,0.96); color: #f0d888;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.8rem; font-style: italic;
+  white-space: nowrap; padding: 8px 16px;
+  border-radius: 1px; border: 1px solid rgba(190,130,35,0.25);
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  z-index: 50;
 }
-@keyframes flameBurst {
-  0%   { transform: scale(1);    box-shadow: 0 2px 14px rgba(0,0,0,0.48); }
-  25%  { transform: scale(1.05); box-shadow: 0 0 50px rgba(230,75,8,0.7), 0 0 100px rgba(180,40,3,0.35); }
-  100% { transform: scale(1);    box-shadow: 0 1px 8px rgba(0,0,0,0.4); }
+#videoHint:hover .video-hint-tooltip { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* The revealed video panel */
+#videoReveal {
+  max-height: 0; overflow: hidden; opacity: 0;
+  transition: max-height 1.4s cubic-bezier(0.22,1,0.36,1), opacity 1.2s ease, margin 0.8s ease;
 }
-.commit-btn.burning { animation: flameBurst 1s ease forwards; }
+#videoReveal.open {
+  max-height: 700px; opacity: 1; margin-top: 1.6rem;
+}
+#videoRevealInner {
+  padding: clamp(1rem,3vw,1.8rem);
+  background: linear-gradient(160deg, rgba(248,236,205,0.55) 0%, rgba(235,215,170,0.38) 100%);
+  border: 1px solid rgba(200,155,45,0.22);
+  border-radius: 1px;
+}
+.video-secret-label {
+  font-family: 'Dancing Script', cursive; font-size: clamp(1.05rem,3vw,1.35rem);
+  font-weight: 600; color: var(--ink-dark); display: block;
+  margin-bottom: 1.1rem; letter-spacing: 0.02em;
+}
+.yt-frame-wrap {
+  position: relative; width: 100%; padding-top: 56.25%;
+  border-radius: 1px; overflow: hidden;
+  box-shadow: 0 6px 30px rgba(0,0,0,0.5);
+}
+.yt-frame-wrap iframe {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+  border: none;
+}
+.video-secret-sub {
+  font-family: 'Cormorant Garamond', serif; font-size: clamp(0.82rem,1.8vw,0.95rem);
+  font-style: italic; font-weight: 300; color: var(--ink-mid);
+  display: block; margin-top: 1rem; letter-spacing: 0.03em;
+}
 
 /* ════════════ BOTTOM TRACK NAME ════════════ */
 #trackNameDisplay {
@@ -774,13 +807,32 @@ body::before {
   .paper { padding: 36px 18px 44px; }
   .corner-fold .fold-secret { width: 140px; font-size: 0.72rem; }
 }
+
+/* ════════════ GOLDEN STATE — paper & background ════════════ */
+
+/* Richer ember animation in discovered state */
+.paper-ember { animation: emberPulseGold 4s ease-in-out infinite alternate; }
+@keyframes emberPulseGold {
+  from { opacity: 0.55; filter: blur(10px); }
+  to   { opacity: 0.95; filter: blur(6px);  }
+}
+
+/* Date counter always visible */
+.date-counter-final {
+  border: 1px solid rgba(200,155,45,0.28) !important;
+  background: linear-gradient(160deg, rgba(248,236,205,0.65) 0%, rgba(235,215,170,0.45) 100%) !important;
+}
+.since-date-big { font-size: clamp(1.1rem, 3.2vw, 1.7rem) !important; }
+
+/* particle canvas gets golden tint via filter */
+#particles { mix-blend-mode: screen; }
 </style>
 </head>
 <body>
 
 <canvas id="particles"></canvas>
 <div class="light-overlay"></div>
-<p class="hint-tooltip">✦ &nbsp; há segredos escondidos nestas páginas &nbsp; ✦</p>
+<p class="hint-tooltip">✦ &nbsp; a carta está completa — mas um último segredo aguarda &nbsp; ✦</p>
 
 <!-- LETTER -->
 <div class="letter-wrapper">
@@ -797,7 +849,6 @@ body::before {
 
       <div class="letter-content">
 
-        <div class="date-location">Quando eu digo que te amo mais...</div>
 
         <h1 class="letter-title">
           Para Ana Clara
@@ -832,10 +883,10 @@ body::before {
 
           <p> Não quero dizer que te amo mais do que você 
           <span class="expand-word" data-id="ms1">me ama</span>,
-          digo que te amo mais que os dias ruins que teremos pela frente. 
-          Que sei oque sinto por você e é maior do que qualquer fase dificil. 
-          E vai além da distancia que pode nos separar, ele não se intimida ou recua. Quero falar que meu amor é <b>inabalavel</b> ,  
-          e continua ardente diante dos obstaculos que surgirão.
+          digo que te amarei (e minha alma disse quando viu a sua) diante dos obstaculos que virão. 
+          Que oque sinto é maior do que qualquer fase dificil. 
+          E vai além da distancia que pode nos separar, ela não se intimida. Quero falar que meu amor é <b>inabalavel</b> ,  
+          e continua diante dos obstaculos.
           <span class="secret-blot"><span class="blot-text">✦ E que seja inabalável ✦</span></span>
           </p>
 
@@ -844,7 +895,7 @@ body::before {
           <span class="highlight"><b>essencial</b></span>
           na minha vida. Desde o inicio de nossa conversa vc
           se tornou o motivo pelo qual retomei o controle da minha vida, de um jeito magico, lançado um Expelliarmus não consigo defender esse sentimento,
-          quem me motivou a voltar a atividades que eu tanto gostava. quem fez eu dormir todas noite com um sorriso no rosto 
+          quem me motivou a voltar ao lugar que tanto gostava. Quem fez eu dormir todas noite com um sorriso no rosto 
           vc tornou a minha vida melhor só por <b>estar nela...</b>
           </p>
 
@@ -854,8 +905,8 @@ body::before {
           <span class="secret-blot"><span class="blot-text">✦ Quanto mais preciso de vc ✦</span></span>
           <p>
           <span class="expand-word" data-id="ms3">Espero que acabe logo minha ilusão</span>
-          de que é você quem está me procurando. Enquanto puder sonhar, eu sonharei com você, só vc é a personificação de tudo que mais admiro no mundo  
-          'conseguiria encher 9¾ de seu amor?'
+          de que é você quem está me procurando. Enquanto puder sonhar, eu sonharei com você, a personificação de tudo de mais admiravel no mundo  
+          'conseguiria encher 9¾ de seu amor?'.
           </p>
 
           <p>E de forma tão intensa, gosto <span class="highlight">do sentimento de estar apaixonado por você</span>
@@ -939,10 +990,20 @@ body::before {
           "selado pra nunca ser esquecido"
         </div>
 
-        <!-- ONE-TIME COMMITMENT BUTTON -->
-        <div class="commit-section" id="commitSection">
-          <p class="commit-hint" id="commitHint">Este botão só pode ser pressionado uma única vez,<br>e marcará o início da nossa contagem.</p>
-          <button class="commit-btn" id="commitBtn">✦ &nbsp; Aceita namorar comigo? &nbsp; ✦</button>
+      
+        <!-- HIDDEN VIDEO SECRET — revealed only after hovering the seal reveal text 3s -->
+        <div id="videoSecretWrap">
+          <div id="videoHint">✦<span class="video-hint-tooltip">segure para revelar…</span></div>
+          <div id="videoReveal">
+            <div id="videoRevealInner">
+              <p class="video-secret-label">um presente escondido só para você</p>
+              <div class="yt-frame-wrap">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/kM0W5vOeXV4?si=qOrCVKvmkqVKflf0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                
+              </div>
+              <p class="video-secret-sub">fiz isso pra você. espero que goste.</p>
+            </div>
+          </div>
         </div>
 
       </div><!-- /letter-content -->
@@ -968,7 +1029,7 @@ body::before {
     <span class="secrets-panel-title">✦ Segredos Encontrados</span>
     <button class="secrets-panel-close" id="secretsPanelClose">✕</button>
   </div>
-  <div class="secrets-count" id="secretsCount">0 de 12 segredos descobertos</div>
+  <div class="secrets-count" id="secretsCount">0 de 13 segredos descobertos</div>
   <div id="secretsList">
     <div class="secrets-empty">Explore a carta com cuidado.<br>Há coisas escondidas<br>para quem sabe procurar.</div>
   </div>
@@ -991,6 +1052,7 @@ const SECRETS = [
   { id:"fadedps", icon:"✉️", title:"Post-scriptum Apagado", desc:"Uma confissão quase invisível no rodapé da carta.",         found:false },
   { id:"annot",   icon:"🌙", title:"Anotação Noturna",       desc:"Escrito na hora que mais queria te ter comigo.",      found:false },
   { id:"wax",     icon:"🔴", title:"Selo de Cera",           desc:"O selo vermelho que marca esta carta.", found:false },
+  { id:"video",   icon:"🎬", title:"O Último Segredo",       desc:"Um vídeo feito especialmente para você.", found:false },
 ];
 
 const STORAGE_KEY_DATE    = "ana_clara_start_date_v2";
@@ -1178,7 +1240,7 @@ function showDateBlock(date) {
   const ctr   = document.getElementById("counterBig");
   block.style.display = "block";
   block.style.animation = "dateAppear 1.2s ease forwards";
-  since.textContent = `Desde ${formatDatePT(date)}, minha história tem o seu nome.`;
+  since.textContent = "Desde 19 de março de 2026, minha história tem o seu nome.";
   updateCounterBig(date, ctr);
   if (!counterInterval) counterInterval = setInterval(() => updateCounterBig(date, ctr), 30000);
 }
@@ -1191,39 +1253,90 @@ function updateCounterBig(date, el) {
   const mins  = Math.floor((diff % 3600000) / 60000);
   el.style.animation = "none"; void el.offsetWidth;
   el.style.animation = "counterReveal 0.8s ease forwards";
-  el.textContent = `Estamos escrevendo essa história há ${days} dia${days!==1?"s":""}, ${hours} hora${hours!==1?"s":""} e ${mins} minuto${mins!==1?"s":""}.`;
+  const parts = [];
+  if (days > 0) parts.push(`${days} dia${days!==1?"s":""}`);
+  if (hours > 0) parts.push(`${hours} hora${hours!==1?"s":""}`);
+  parts.push(`${mins} minuto${mins!==1?"s":""}`);
+  el.textContent = "Juntos há:" + parts.join(", ") + ".";
 }
 
-const stored = localStorage.getItem(STORAGE_KEY_DATE);
-if (stored) {
-  startDate = new Date(stored);
-  showDateBlock(startDate);
-  hideCommitSection();
+// Fixed relationship start: 19 March 2026 at 15:40
+const RELATIONSHIP_START = new Date("2026-03-19T15:40:00");
+startDate = RELATIONSHIP_START;
+
+// Show counter immediately and update every minute
+showDateBlock(RELATIONSHIP_START);
+
+// Update every 60s for live feel
+setInterval(() => {
+  const el = document.getElementById("counterBig");
+  if (el) updateCounterBig(RELATIONSHIP_START, el);
+}, 60000);
+
+/* ═══════════════════════════════════════════════════════════════
+   VIDEO SECRET — star hint at bottom reveals YouTube video
+═══════════════════════════════════════════════════════════════ */
+const videoHintEl  = document.getElementById("videoHint");
+const videoRevealEl = document.getElementById("videoReveal");
+let videoOpen = false;
+let videoHintHoldTimer = null;
+let videoHintHoldCount = 0;
+
+if (videoHintEl) {
+  // Tooltip hint when hovering
+  videoHintEl.addEventListener("mouseenter", () => {
+    videoHintHoldTimer = setTimeout(() => {
+      openVideoSecret();
+    }, 2200); // hold 2.2s to reveal
+  });
+  videoHintEl.addEventListener("mouseleave", () => {
+    clearTimeout(videoHintHoldTimer);
+  });
+
+  // On mobile: tap 3 times
+  videoHintEl.addEventListener("click", () => {
+    videoHintHoldCount++;
+    if (videoHintHoldCount >= 3) {
+      openVideoSecret();
+      videoHintHoldCount = 0;
+    }
+    setTimeout(() => { videoHintHoldCount = 0; }, 1200);
+  });
 }
 
-function hideCommitSection() {
-  const sec = document.getElementById("commitSection");
-  if (sec) { sec.style.maxHeight = "0"; sec.style.opacity = "0"; sec.style.pointerEvents = "none"; sec.style.marginTop = "0"; sec.style.paddingTop = "0"; }
-}
+function openVideoSecret() {
+  if (videoOpen) return;
+  videoOpen = true;
 
-document.getElementById("commitBtn").addEventListener("click", function() {
-  if (localStorage.getItem(STORAGE_KEY_DATE)) return;
-  const now = new Date();
-  localStorage.setItem(STORAGE_KEY_DATE, now.toISOString());
-  startDate = now;
-  this.classList.add("burning");
+  // Load YouTube iframe src (lazy)
+  const frame = document.getElementById("ytFrame");
+  if (frame && !frame.src.includes("youtube")) {
+    frame.src = frame.dataset.src;
+  }
+
+  // Animate the star hint golden burst
+  if (videoHintEl) {
+    videoHintEl.style.color = "var(--gold)";
+    videoHintEl.style.textShadow = "0 0 18px rgba(220,165,20,0.9), 0 0 40px rgba(200,130,12,0.6)";
+    videoHintEl.style.animation = "none";
+  }
+  burstGoldParticles(videoHintEl);
+
+  // Reveal panel
+  if (videoRevealEl) {
+    videoRevealEl.classList.add("open");
+    setTimeout(() => {
+      videoRevealEl.scrollIntoView({ behavior: "smooth", block: "center" });
+    }, 500);
+  }
+
+  // Sound
   if (audioCtx) playChime();
-  for (let i = 0; i < 45; i++) particles.push(mkBurstParticle(window.innerWidth*0.5, window.innerHeight*0.55));
-  setTimeout(() => {
-    this.classList.remove("burning");
-    this.textContent = "✦  Nossa história já começou  ✦";
-    this.classList.add("done");
-    this.disabled = true;
-    document.getElementById("commitHint").textContent = `Este capítulo foi aberto em ${formatDatePT(now)} às ${formatTimePT(now)}.`;
-    document.getElementById("commitHint").style.color = "#7a5020";
-    showDateBlock(now);
-  }, 1050);
-});
+  else { ensureAudioCtx(); setTimeout(playChime, 100); }
+
+  // Register as a secret
+  findSecret("video");
+}
 
 /* ═══════════════════════════════════════════════════════════════
    DIVIDER STARS
