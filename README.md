@@ -1,4 +1,4 @@
-# Carta de namoro interativa (Para Ana Clara)
+# Carta interativa
 
 Projeto: carta digital interativa;
 
